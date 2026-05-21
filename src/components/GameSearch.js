@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { T } from "@/lib/translations";
 
 // ─── Help Content ─────────────────────────────────────────────────────────────
 
@@ -111,8 +112,11 @@ function normaliseSeedKey(raw) {
  * Props:
  *   onSeedKey  — called (no args) when the SeedKey is entered and the session is live
  *   burned     — true after a QuickExit; SeedKey then shows the session-expired message
+ *   lang       — "en" | "ru"
  */
-export default function GameSearch({ onSeedKey, burned = false }) {
+export default function GameSearch({ onSeedKey, burned = false, lang = "en" }) {
+  const t = T[lang] ?? T.en;
+
   const [query,          setQuery]          = useState("");
   const [results,        setResults]        = useState([]);
   const [searched,       setSearched]       = useState(false);
@@ -166,7 +170,7 @@ export default function GameSearch({ onSeedKey, burned = false }) {
 
   return (
     <div className="mt-5">
-      <p className="text-xs text-slate-500 uppercase tracking-widest mb-2">Game Help</p>
+      <p className="text-xs text-slate-500 uppercase tracking-widest mb-2">{t.gameHelp}</p>
 
       {/* Search bar */}
       <div className="flex gap-2">
@@ -175,21 +179,21 @@ export default function GameSearch({ onSeedKey, burned = false }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Search rules, tips, or game help…"
+          placeholder={t.searchPlaceholder}
           className="flex-1 bg-slate-700 border border-slate-600 text-slate-200 placeholder-slate-500 text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-sky-500 transition-colors duration-150"
         />
         <button
           onClick={handleSearch}
           className="bg-sky-600 hover:bg-sky-500 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors duration-150 shrink-0"
         >
-          Search
+          {t.search}
         </button>
         {searched && (
           <button
             onClick={handleClear}
             className="border border-slate-600 hover:border-slate-500 text-slate-400 hover:text-slate-200 text-sm font-medium px-4 py-2.5 rounded-lg transition-colors duration-150 shrink-0"
           >
-            Clear
+            {t.clear}
           </button>
         )}
       </div>
@@ -205,7 +209,7 @@ export default function GameSearch({ onSeedKey, burned = false }) {
           ) : results.length === 0 ? (
             // ── Empty help-search state ───────────────────────────────────────
             <div className="text-sm text-slate-500 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg">
-              No help topics found. Try a different keyword.
+              {t.noHelpFound}
             </div>
           ) : (
             // ── Normal help results ───────────────────────────────────────────

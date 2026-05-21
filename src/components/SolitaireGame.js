@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import GameSearch from "@/components/GameSearch";
 import VerifiedView from "@/components/VerifiedView";
 import { dealGame, canMoveToTableau, executeTableauMove } from "@/lib/deckUtils";
+import { T } from "@/lib/translations";
 
 // ─── Card Rendering ───────────────────────────────────────────────────────────
 
@@ -216,11 +217,11 @@ function SolitaireBoard({
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 
-function Sidebar() {
+function Sidebar({ t }) {
   return (
     <aside className="flex flex-col gap-4 lg:w-64 shrink-0">
-      <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
-        <h3 className="text-white font-semibold mb-3 text-sm">How to Play</h3>
+      <div className="bg-slate-800 border border-slate-700 rounded-xl p-4" id="rules">
+        <h3 className="text-white font-semibold mb-3 text-sm">{t.howToPlay}</h3>
         <ul className="space-y-2 text-slate-400 text-xs leading-relaxed">
           <li>• Move cards to the four foundation piles in suit order, Ace to King.</li>
           <li>• Build tableau columns in descending order, alternating colours.</li>
@@ -231,24 +232,24 @@ function Sidebar() {
 
       <div className="bg-linear-to-br from-sky-900/50 to-slate-800 border border-sky-800/40 rounded-xl p-4">
         <span className="text-xs uppercase tracking-widest text-sky-400 font-semibold block mb-1">
-          Daily
+          {t.dailyLabel}
         </span>
-        <h3 className="text-white font-semibold mb-2 text-sm">Today&apos;s Challenge</h3>
+        <h3 className="text-white font-semibold mb-2 text-sm">{t.dailyChallenge}</h3>
         <p className="text-slate-400 text-xs leading-relaxed mb-3">
-          A new deal drops every day. Beat the clock and post your score.
+          {t.dailyDesc}
         </p>
         <button className="w-full text-sm bg-sky-600 hover:bg-sky-500 text-white rounded-lg py-2 transition-colors duration-150 font-medium">
-          Start Challenge
+          {t.startChallenge}
         </button>
       </div>
 
       <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
-        <h3 className="text-white font-semibold mb-3 text-sm">Top Scores</h3>
+        <h3 className="text-white font-semibold mb-3 text-sm">{t.topScores}</h3>
         <div className="space-y-2">
           {[
-            { rank: 1, name: "Player_44", score: "7,240" },
+            { rank: 1, name: "Player_44",    score: "7,240" },
             { rank: 2, name: "KlondikeKing", score: "6,980" },
-            { rank: 3, name: "CardShark91", score: "6,510" },
+            { rank: 3, name: "CardShark91",  score: "6,510" },
           ].map((entry) => (
             <div key={entry.rank} className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
@@ -260,7 +261,7 @@ function Sidebar() {
           ))}
         </div>
         <button className="mt-3 w-full text-xs text-slate-500 hover:text-slate-300 transition-colors duration-150">
-          View all scores →
+          {t.viewAllScores}
         </button>
       </div>
     </aside>
@@ -299,7 +300,14 @@ function BoardSkeleton() {
 
 // ─── Main Game Component ──────────────────────────────────────────────────────
 
-export default function SolitaireGame({ articles = [], leadStory = null, infographics = [] }) {
+export default function SolitaireGame({
+  articles     = [],
+  leadStory    = null,
+  infographics = [],
+  lang         = "en",
+}) {
+  const t = T[lang] ?? T.en;
+
   const [gameState, setGameState] = useState(null);
 
   // { colIdx: number, cardIdx: number } — which face-up card is selected,
@@ -434,6 +442,7 @@ export default function SolitaireGame({ articles = [], leadStory = null, infogra
       articles={articles}
       leadStory={leadStory}
       infographics={infographics}
+      lang={lang}
     />
   );
 
@@ -443,34 +452,34 @@ export default function SolitaireGame({ articles = [], leadStory = null, infogra
     <>
       {/* Controls bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <h1 className="text-xl font-bold text-white">Solitaire</h1>
+        <h1 className="text-xl font-bold text-white">{t.klondikeTitle}</h1>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-sm text-slate-400 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5">
-            <span className="text-slate-500 text-xs">Score</span>
+            <span className="text-slate-500 text-xs">{t.score}</span>
             <span className="text-white font-semibold">0</span>
           </div>
           <div className="flex items-center gap-1.5 text-sm text-slate-400 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5">
-            <span className="text-slate-500 text-xs">Time</span>
+            <span className="text-slate-500 text-xs">{t.timer}</span>
             <span className="text-white font-semibold tabular-nums">00:00</span>
           </div>
           <button
             onClick={handleNewGame}
             className="text-sm bg-sky-600 hover:bg-sky-500 text-white font-medium px-4 py-1.5 rounded-lg transition-colors duration-150"
           >
-            New Game
+            {t.newGame}
           </button>
           <button
             onClick={handleNewGame}
             className="text-sm border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-medium px-4 py-1.5 rounded-lg transition-colors duration-150"
           >
-            Restart
+            {t.restart}
           </button>
         </div>
       </div>
 
       {/* Main layout: board + sidebar */}
       <div className="flex flex-col lg:flex-row gap-5">
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0" id="help">
           <SolitaireBoard
             drawPile={drawPile}
             wastePile={wastePile}
@@ -480,9 +489,9 @@ export default function SolitaireGame({ articles = [], leadStory = null, infogra
             onCardClick={handleCardClick}
             onColumnClick={handleEmptyColumnClick}
           />
-          <GameSearch onSeedKey={handleSeedKey} burned={burned} />
+          <GameSearch onSeedKey={handleSeedKey} burned={burned} lang={lang} />
         </div>
-        <Sidebar />
+        <Sidebar t={t} />
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { T } from "@/lib/translations";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -207,7 +208,7 @@ function ArticleRow({ article, isLast, isExpanded, onToggle }) {
 
 // ─── Return button (shared) ───────────────────────────────────────────────────
 
-function ReturnButton({ onExit }) {
+function ReturnButton({ onExit, label = "Return" }) {
   return (
     <button
       onClick={onExit}
@@ -215,7 +216,7 @@ function ReturnButton({ onExit }) {
       className="flex items-center gap-2 group shrink-0"
     >
       <span className="hidden sm:inline text-sm font-medium text-gray-500 group-hover:text-gray-800 transition-colors duration-150">
-        Return
+        {label}
       </span>
       <div className="w-11 h-11 sm:w-9 sm:h-9 rounded-full bg-red-600 group-hover:bg-red-500 active:bg-red-700 transition-colors duration-150 flex items-center justify-center shadow-sm ring-1 ring-red-500/30 shrink-0">
         <svg viewBox="0 0 14 14" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" className="w-3.5 h-3.5" aria-hidden="true">
@@ -243,7 +244,9 @@ export default function VerifiedView({
   leadStory    = null,
   articles     = [],
   infographics = [],
+  lang         = "en",
 }) {
+  const t     = T[lang] ?? T.en;
   const today = getTodayFormatted();
   const [expandedSlug,   setExpandedSlug]   = useState(null);
 
@@ -342,7 +345,7 @@ export default function VerifiedView({
           )}
 
           {/* Return / QuickExit — always right-aligned, 44 px tap target mobile */}
-          <ReturnButton onExit={onExit} />
+          <ReturnButton onExit={onExit} label={t.return} />
         </div>
       </div>
 
