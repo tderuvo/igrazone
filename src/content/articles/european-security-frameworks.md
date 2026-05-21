@@ -4,7 +4,8 @@ subtitle: "Governments across the continent assess long-term stability commitmen
 date: "2026-05-20"
 category: "Europe"
 source: "Now You Know"
-image: "/images/news/placeholder-1.jpg"
+image: "/images/articles/placeholder-1.svg"
+youtubeId: ""
 ---
 
 Senior officials from multiple European member states convened this week to review shared security frameworks. Conversations centred on coordination mechanisms, mutual assistance protocols, and the distribution of long-term commitments across national governments.

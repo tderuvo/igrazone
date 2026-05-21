@@ -4,7 +4,8 @@ subtitle: "Analysts track commodity fluctuations ahead of central bank updates."
 date: "2026-05-19"
 category: "Economy"
 source: "Now You Know"
-image: "/images/news/placeholder-2.jpg"
+image: "/images/articles/placeholder-2.svg"
+youtubeId: ""
 ---
 
 Global equity markets continued to respond to shifting energy prices this week, with traders watching commodity indices for signs of broader pressure on supply chains. Logistics data from several major shipping corridors showed continued variability, prompting caution among institutional investors.

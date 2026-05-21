@@ -4,7 +4,8 @@ subtitle: "Back-channel conversations continue as formal talks pause."
 date: "2026-05-15"
 category: "Politics"
 source: "Now You Know"
-image: "/images/news/placeholder-6.jpg"
+image: "/images/articles/placeholder-6.svg"
+youtubeId: ""
 ---
 
 Diplomatic contacts between several governments have continued through informal channels despite a pause in scheduled formal negotiations, according to sources familiar with the process. Representatives described the conversations as exploratory rather than substantive, aimed at maintaining communication during a period of heightened uncertainty.

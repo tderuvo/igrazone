@@ -299,7 +299,7 @@ function BoardSkeleton() {
 
 // ─── Main Game Component ──────────────────────────────────────────────────────
 
-export default function SolitaireGame({ articles = [] }) {
+export default function SolitaireGame({ articles = [], leadStory = null, infographics = [] }) {
   const [gameState, setGameState] = useState(null);
 
   // { colIdx: number, cardIdx: number } — which face-up card is selected,
@@ -428,7 +428,14 @@ export default function SolitaireGame({ articles = [] }) {
 
   // SeedKey was entered — show full-screen Verified View instead of the game.
   // The overlay uses position:fixed so it covers header, footer, and everything.
-  if (verified) return <VerifiedView onExit={handleQuickExit} articles={articles} />;
+  if (verified) return (
+    <VerifiedView
+      onExit={handleQuickExit}
+      articles={articles}
+      leadStory={leadStory}
+      infographics={infographics}
+    />
+  );
 
   const { drawPile, wastePile, tableau } = gameState;
 

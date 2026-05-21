@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280">
+  <rect width="600" height="280" fill="#fafafa"/>
+  <rect x="0.5" y="0.5" width="599" height="279" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- Title -->
+  <text x="30" y="34" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#374151">Regional Energy Signals</text>
+  <!-- Y-axis -->
+  <line x1="55" y1="55" x2="55" y2="225" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- X-axis -->
+  <line x1="55" y1="225" x2="565" y2="225" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- Grid lines -->
+  <line x1="55" y1="175" x2="565" y2="175" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="55" y1="130" x2="565" y2="130" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="55" y1="85" x2="565" y2="85" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- Bars — varying heights -->
+  <rect x="75"  y="145" width="52" height="80" fill="#d1d5db" rx="2"/>
+  <rect x="155" y="105" width="52" height="120" fill="#c9cdd4" rx="2"/>
+  <rect x="235" y="120" width="52" height="105" fill="#d1d5db" rx="2"/>
+  <rect x="315" y="88"  width="52" height="137" fill="#c4c8cf" rx="2"/>
+  <rect x="395" y="110" width="52" height="115" fill="#d1d5db" rx="2"/>
+  <rect x="475" y="95"  width="52" height="130" fill="#c9cdd4" rx="2"/>
+  <!-- X labels -->
+  <text x="101"  y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">WK 1</text>
+  <text x="181"  y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">WK 2</text>
+  <text x="261"  y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">WK 3</text>
+  <text x="341"  y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">WK 4</text>
+  <text x="421"  y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">WK 5</text>
+  <text x="501"  y="244" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">WK 6</text>
+  <!-- Caption -->
+  <text x="300" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#d1d5db" letter-spacing="0.5">ILLUSTRATIVE DATA — NOT ACTUAL FIGURES</text>
+</svg>

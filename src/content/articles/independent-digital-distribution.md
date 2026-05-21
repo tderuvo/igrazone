@@ -4,7 +4,8 @@ subtitle: "Publishers explore new delivery methods to reach broader audiences."
 date: "2026-05-18"
 category: "Media"
 source: "Now You Know"
-image: "/images/news/placeholder-3.jpg"
+image: "/images/articles/placeholder-3.svg"
+youtubeId: ""
 ---
 
 A coalition of independent news organisations announced this week a coordinated effort to expand digital distribution infrastructure. The initiative aims to reach audiences in regions where access to verified international reporting remains limited or unreliable.

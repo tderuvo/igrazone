@@ -19,14 +19,15 @@ const MAX_ARTICLES  = 10;
  *
  * Shape:
  *   {
- *     slug:     string   // filename without .md
- *     title:    string
- *     subtitle: string
- *     date:     string   // "YYYY-MM-DD"
- *     category: string
- *     source:   string
- *     image:    string   // path (may be a placeholder)
- *     body:     string   // full article text (Markdown, stripped of frontmatter)
+ *     slug:      string   // filename without .md
+ *     title:     string
+ *     subtitle:  string
+ *     date:      string   // "YYYY-MM-DD"
+ *     category:  string
+ *     source:    string
+ *     image:     string   // path (SVG placeholder)
+ *     youtubeId: string   // YouTube video ID, or "" if none
+ *     body:      string   // full article text (Markdown, stripped of frontmatter)
  *   }
  */
 export function getArticles() {
@@ -42,14 +43,15 @@ export function getArticles() {
     const { data, content } = matter(raw);
 
     return {
-      slug:     file.replace(/\.md$/, ""),
-      title:    data.title    ?? "",
-      subtitle: data.subtitle ?? "",
-      date:     data.date     ?? "1970-01-01",
-      category: data.category ?? "General",
-      source:   data.source   ?? "Now You Know",
-      image:    data.image    ?? "",
-      body:     content.trim(),
+      slug:      file.replace(/\.md$/, ""),
+      title:     data.title     ?? "",
+      subtitle:  data.subtitle  ?? "",
+      date:      data.date      ?? "1970-01-01",
+      category:  data.category  ?? "General",
+      source:    data.source    ?? "Now You Know",
+      image:     data.image     ?? "",
+      youtubeId: data.youtubeId ?? "",
+      body:      content.trim(),
     };
   });
 

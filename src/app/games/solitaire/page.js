@@ -2,7 +2,9 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import SolitaireGame from "@/components/SolitaireGame";
-import { getArticles } from "@/lib/getArticles";
+import { getArticles }   from "@/lib/getArticles";
+import { getLeadStory }  from "@/lib/getLeadStory";
+import { infographics }  from "@/content/infographics";
 
 export const metadata = {
   title: "Solitaire — IgraZone",
@@ -10,10 +12,11 @@ export const metadata = {
 };
 
 export default function SolitairePage() {
-  // Load articles server-side so they are available to the Verified View
-  // without any client-side fetch.  getArticles() reads the filesystem, so
-  // it can only live here (server component) — never in a "use client" file.
-  const articles = getArticles();
+  // All three data sources are loaded server-side (filesystem reads).
+  // The results are plain, JSON-serialisable objects — safe to pass as props
+  // across the server → client component boundary.
+  const articles    = getArticles();
+  const leadStory   = getLeadStory();
 
   return (
     <>
@@ -33,9 +36,11 @@ export default function SolitairePage() {
             <span className="text-slate-300">Solitaire</span>
           </nav>
 
-          {/* Interactive game — client component.
-              articles is a plain serialisable array, safe to pass as a prop. */}
-          <SolitaireGame articles={articles} />
+          <SolitaireGame
+            articles={articles}
+            leadStory={leadStory}
+            infographics={infographics}
+          />
         </div>
       </main>
       <SiteFooter />

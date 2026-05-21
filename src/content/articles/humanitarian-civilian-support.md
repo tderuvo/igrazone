@@ -4,7 +4,8 @@ subtitle: "Relief bodies highlight gaps in existing humanitarian frameworks."
 date: "2026-05-17"
 category: "Humanitarian"
 source: "Now You Know"
-image: "/images/news/placeholder-4.jpg"
+image: "/images/articles/placeholder-4.svg"
+youtubeId: ""
 ---
 
 International relief organisations renewed their calls this week for strengthened civilian protection commitments from member states. Representatives pointed to documented gaps in existing frameworks, particularly in contexts involving displaced populations and disrupted essential services.

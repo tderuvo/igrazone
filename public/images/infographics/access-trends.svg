@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280">
+  <rect width="600" height="280" fill="#fafafa"/>
+  <rect x="0.5" y="0.5" width="599" height="279" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- Title -->
+  <text x="30" y="34" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#374151">Information Access Trends</text>
+  <!-- Axes -->
+  <line x1="55" y1="55" x2="55" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="55" y1="220" x2="565" y2="220" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- Grid lines -->
+  <line x1="55" y1="175" x2="565" y2="175" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="55" y1="130" x2="565" y2="130" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="55" y1="85"  x2="565" y2="85"  stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- Upward trend line A -->
+  <polyline
+    points="70,190 140,172 210,158 280,148 350,132 420,118 490,105 560,92"
+    fill="none" stroke="#c9cdd4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Dots on trend A -->
+  <circle cx="70"  cy="190" r="3.5" fill="#c9cdd4"/>
+  <circle cx="140" cy="172" r="3.5" fill="#c9cdd4"/>
+  <circle cx="210" cy="158" r="3.5" fill="#c9cdd4"/>
+  <circle cx="280" cy="148" r="3.5" fill="#c9cdd4"/>
+  <circle cx="350" cy="132" r="3.5" fill="#c9cdd4"/>
+  <circle cx="420" cy="118" r="3.5" fill="#c9cdd4"/>
+  <circle cx="490" cy="105" r="3.5" fill="#c9cdd4"/>
+  <circle cx="560" cy="92"  r="3.5" fill="#c9cdd4"/>
+  <!-- Flatter trend line B -->
+  <polyline
+    points="70,205 140,200 210,198 280,195 350,190 420,185 490,182 560,178"
+    fill="none" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3"/>
+  <!-- Period labels -->
+  <text x="70"  y="238" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">Q1</text>
+  <text x="210" y="238" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">Q2</text>
+  <text x="350" y="238" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">Q3</text>
+  <text x="490" y="238" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">Q4</text>
+  <!-- Legend -->
+  <line x1="330" y1="260" x2="355" y2="260" stroke="#c9cdd4" stroke-width="2.5"/>
+  <text x="360" y="264" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">Digital reach</text>
+  <line x1="430" y1="260" x2="455" y2="260" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="460" y="264" font-family="system-ui, sans-serif" font-size="9" fill="#9ca3af">Baseline</text>
+  <!-- Caption -->
+  <text x="300" y="275" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#d1d5db" letter-spacing="0.5">ILLUSTRATIVE DATA — NOT ACTUAL FIGURES</text>
+</svg>

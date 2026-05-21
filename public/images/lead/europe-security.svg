@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#f3f4f6"/>
+  <rect x="1" y="1" width="798" height="448" fill="none" stroke="#e5e7eb" stroke-width="1.5"/>
+  <!-- Sky gradient suggestion -->
+  <rect x="1" y="1" width="798" height="220" fill="#eef2f7" opacity="0.6"/>
+  <!-- Distant hills -->
+  <ellipse cx="200" cy="300" rx="280" ry="90" fill="#e5e7eb"/>
+  <ellipse cx="640" cy="310" rx="220" ry="80" fill="#e9ecf0"/>
+  <!-- Foreground silhouette -->
+  <path d="M0 380 Q80 340 160 360 Q240 320 300 340 Q380 290 450 310 Q520 270 600 300 Q680 270 760 290 L800 280 L800 450 L0 450 Z" fill="#dde1e7"/>
+  <!-- Horizon line -->
+  <line x1="0" y1="340" x2="800" y2="315" stroke="#d1d5db" stroke-width="1" opacity="0.6"/>
+  <!-- Sun / light source -->
+  <circle cx="660" cy="115" r="38" fill="#e5e7eb"/>
+  <circle cx="660" cy="115" r="26" fill="#d4d8df"/>
+  <!-- Label -->
+  <text x="400" y="432" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#9ca3af" letter-spacing="2">LEAD IMAGE</text>
+</svg>
