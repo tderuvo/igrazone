@@ -9,13 +9,13 @@ export const metadata = {
 };
 
 export default function SolitairePage() {
-  const articles  = getArticles();
-  const leadStory = getLeadStory();
-
+  // Both language variants are fetched once at server/build time.
   return (
     <SolitairePageWrapper
-      articles={articles}
-      leadStory={leadStory}
+      articlesEn={getArticles("en")}
+      articlesRu={getArticles("ru")}
+      leadStoryEn={getLeadStory("en")}
+      leadStoryRu={getLeadStory("ru")}
       infographics={infographics}
     />
   );

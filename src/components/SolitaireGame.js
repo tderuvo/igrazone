@@ -305,6 +305,7 @@ export default function SolitaireGame({
   leadStory    = null,
   infographics = [],
   lang         = "en",
+  onLangChange,
 }) {
   const t = T[lang] ?? T.en;
 
@@ -443,6 +444,7 @@ export default function SolitaireGame({
       leadStory={leadStory}
       infographics={infographics}
       lang={lang}
+      onLangChange={onLangChange}
     />
   );
 

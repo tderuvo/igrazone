@@ -9,13 +9,14 @@ export const metadata = {
 };
 
 export default function Home() {
-  const articles  = getArticles();
-  const leadStory = getLeadStory();
-
+  // Both language variants are fetched once at server/build time.
+  // The client wrapper selects the right set based on the active lang state.
   return (
     <SolitairePageWrapper
-      articles={articles}
-      leadStory={leadStory}
+      articlesEn={getArticles("en")}
+      articlesRu={getArticles("ru")}
+      leadStoryEn={getLeadStory("en")}
+      leadStoryRu={getLeadStory("ru")}
       infographics={infographics}
     />
   );

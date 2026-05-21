@@ -13,28 +13,40 @@ const SOURCES = [
   { id: "hochuzhit", label: "Hochu Zhit" },
 ];
 
+// Covers both English and Russian category names so colour coding always works
+// regardless of which language's article data is active.
 const CATEGORY_COLOURS = {
+  // English
   Europe:       "text-blue-700",
   Economy:      "text-amber-700",
   Media:        "text-emerald-700",
   Humanitarian: "text-rose-700",
   Technology:   "text-sky-700",
   Politics:     "text-violet-700",
+  // Russian equivalents
+  "Европа":              "text-blue-700",
+  "Экономика":           "text-amber-700",
+  "Медиа":               "text-emerald-700",
+  "Гуманитарная помощь": "text-rose-700",
+  "Технологии":          "text-sky-700",
+  "Политика":            "text-violet-700",
 };
 
 const SWIPE_MIN_PX = 70;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function getTodayFormatted() {
-  return new Date().toLocaleDateString("en-US", {
+function getTodayFormatted(lang) {
+  const locale = lang === "ru" ? "ru-RU" : "en-US";
+  return new Date().toLocaleDateString(locale, {
     year: "numeric", month: "long", day: "numeric",
   });
 }
 
-function formatDate(dateStr) {
+function formatDate(dateStr, lang) {
   if (!dateStr) return "";
-  return new Date(`${dateStr}T00:00:00`).toLocaleDateString("en-US", {
+  const locale = lang === "ru" ? "ru-RU" : "en-US";
+  return new Date(`${dateStr}T00:00:00`).toLocaleDateString(locale, {
     year: "numeric", month: "long", day: "numeric",
   });
 }
@@ -79,7 +91,7 @@ function ArticleImage({ src, alt, className = "" }) {
 
 // ─── Lead Story Hero ──────────────────────────────────────────────────────────
 
-function LeadStoryHero({ story }) {
+function LeadStoryHero({ story, t, lang }) {
   const [expanded, setExpanded] = useState(false);
   if (!story) return null;
   const excerpt = firstParagraph(story.body);
@@ -87,7 +99,7 @@ function LeadStoryHero({ story }) {
   return (
     <section className="border-b-2 border-gray-200 pb-8 mb-0">
       <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">
-        Lead Briefing
+        {t.leadBriefing}
       </p>
       <div className="flex flex-col sm:flex-row gap-5 sm:gap-7">
         <div className="w-full sm:w-2/5 shrink-0">
@@ -102,7 +114,7 @@ function LeadStoryHero({ story }) {
             </span>
             <span className="text-gray-300 text-[10px]" aria-hidden="true">·</span>
             <time dateTime={story.date} className="text-[11px] text-gray-400">
-              {formatDate(story.date)}
+              {formatDate(story.date, lang)}
             </time>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-gray-900 leading-tight tracking-tight mb-2 wrap-break-word">
@@ -112,7 +124,7 @@ function LeadStoryHero({ story }) {
             {story.subtitle}
           </p>
           {story.author && (
-            <p className="text-[11px] text-gray-400 mb-4">By {story.author}</p>
+            <p className="text-[11px] text-gray-400 mb-4">{t.byAuthor} {story.author}</p>
           )}
           {!expanded && excerpt && (
             <p className="text-sm text-gray-600 leading-relaxed mb-4 wrap-break-word">
@@ -123,7 +135,7 @@ function LeadStoryHero({ story }) {
             onClick={() => setExpanded((v) => !v)}
             className="text-xs font-bold text-gray-800 hover:text-black underline underline-offset-2 decoration-1 transition-colors duration-150"
           >
-            {expanded ? "Close briefing ↑" : "Read briefing →"}
+            {expanded ? t.closeBriefing : t.readBriefing}
           </button>
         </div>
       </div>
@@ -157,7 +169,7 @@ function InfographicCard({ ig }) {
 
 // ─── Article row ──────────────────────────────────────────────────────────────
 
-function ArticleRow({ article, isLast, isExpanded, onToggle }) {
+function ArticleRow({ article, isLast, isExpanded, onToggle, t, lang }) {
   const excerpt = firstParagraph(article.body);
   return (
     <article className={`py-5 sm:py-6 min-w-0 ${isLast ? "" : "border-b border-gray-200"}`}>
@@ -172,7 +184,7 @@ function ArticleRow({ article, isLast, isExpanded, onToggle }) {
             </span>
             <span className="text-gray-300 text-[10px]" aria-hidden="true">·</span>
             <time dateTime={article.date} className="text-[11px] text-gray-400">
-              {formatDate(article.date)}
+              {formatDate(article.date, lang)}
             </time>
           </div>
           <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-snug mb-1.5 tracking-tight wrap-break-word">
@@ -198,7 +210,7 @@ function ArticleRow({ article, isLast, isExpanded, onToggle }) {
             onClick={onToggle}
             className="text-xs font-semibold text-gray-700 hover:text-gray-900 underline underline-offset-2 decoration-1 transition-colors duration-150"
           >
-            {isExpanded ? "Show less ↑" : "Read more →"}
+            {isExpanded ? t.showLess : t.readMore}
           </button>
         </div>
       </div>
@@ -238,6 +250,10 @@ function ReturnButton({ onExit, label = "Return" }) {
  *
  * onExit always triggers the QuickExit / session-burn path regardless of
  * which internal view is currently shown.
+ *
+ * lang / onLangChange drive the EN | RU toggle in the masthead and select
+ * which article content is displayed (selection happens in SolitairePageWrapper
+ * before these props reach here).
  */
 export default function VerifiedView({
   onExit,
@@ -245,9 +261,11 @@ export default function VerifiedView({
   articles     = [],
   infographics = [],
   lang         = "en",
+  onLangChange,
 }) {
   const t     = T[lang] ?? T.en;
-  const today = getTodayFormatted();
+  const today = getTodayFormatted(lang);
+
   const [expandedSlug,   setExpandedSlug]   = useState(null);
 
   // null = home view   "meduza"|"hochuzhit" = source view
@@ -322,8 +340,8 @@ export default function VerifiedView({
                 aria-label="Back to Now You Know"
               >
                 <span aria-hidden="true">←</span>
-                <span className="hidden sm:inline">Back to</span>
-                <span>Now You Know</span>
+                <span className="hidden sm:inline">{t.backTo}</span>
+                <span>{t.nowYouKnow}</span>
               </button>
               {activeSource && (
                 <>
@@ -338,7 +356,7 @@ export default function VerifiedView({
             /* Home view — swipe hint on mobile, spacer on desktop */
             <>
               <p className="flex-1 min-w-0 text-[10px] text-gray-400 select-none sm:hidden leading-tight">
-                Swipe right or tap Return to go back.
+                {t.swipeHint}
               </p>
               <div className="hidden sm:block flex-1" aria-hidden="true" />
             </>
@@ -375,15 +393,36 @@ export default function VerifiedView({
               Now You Know
             </h1>
             <p className="text-center text-xs sm:text-sm text-gray-500 mb-3 wrap-break-word leading-relaxed">
-              Independent context for a fast-changing world.
+              {t.nykSubtitle}
             </p>
             <div className="flex items-center justify-center gap-x-3 gap-y-1 text-xs text-gray-500 flex-wrap mb-4">
               <time dateTime={new Date().toISOString().split("T")[0]}>{today}</time>
               <span aria-hidden="true" className="text-gray-300">·</span>
+              {/* Functional EN | RU language toggle */}
               <div className="flex items-center gap-1.5 shrink-0" aria-label="Language">
-                <button className="text-xs font-bold text-gray-900 underline underline-offset-2 decoration-1 cursor-default" aria-current="true" tabIndex={-1}>EN</button>
+                <button
+                  onClick={() => onLangChange?.("en")}
+                  aria-current={lang === "en" ? "true" : undefined}
+                  className={`text-xs font-bold transition-colors duration-150 underline-offset-2 decoration-1 ${
+                    lang === "en"
+                      ? "text-gray-900 underline cursor-default"
+                      : "text-gray-400 hover:text-gray-700"
+                  }`}
+                >
+                  EN
+                </button>
                 <span className="text-gray-400 select-none" aria-hidden="true">|</span>
-                <button className="text-xs text-gray-400 hover:text-gray-700 transition-colors duration-150 cursor-not-allowed" tabIndex={-1} title="Russian edition coming soon">RU</button>
+                <button
+                  onClick={() => onLangChange?.("ru")}
+                  aria-current={lang === "ru" ? "true" : undefined}
+                  className={`text-xs font-bold transition-colors duration-150 underline-offset-2 decoration-1 ${
+                    lang === "ru"
+                      ? "text-gray-900 underline cursor-default"
+                      : "text-gray-400 hover:text-gray-700"
+                  }`}
+                >
+                  RU
+                </button>
               </div>
             </div>
             <div className="border-b-2 border-gray-900" />
@@ -391,7 +430,7 @@ export default function VerifiedView({
 
           {/* International source links — buttons that open SourceView */}
           <div className="w-full max-w-3xl mx-auto min-w-0 px-4 sm:px-6 py-3 border-b border-gray-200 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-gray-500">
-            <span className="font-semibold text-gray-600 shrink-0">International Sources:</span>
+            <span className="font-semibold text-gray-600 shrink-0">{t.intlSources}</span>
             {SOURCES.map((s, i) => (
               <span key={s.id} className="flex items-center gap-x-1.5 shrink-0">
                 <button
@@ -412,12 +451,12 @@ export default function VerifiedView({
             className="w-full max-w-3xl mx-auto min-w-0 px-4 sm:px-6 pt-7 sm:pt-9"
             style={{ paddingBottom: "max(3rem, env(safe-area-inset-bottom, 0px))" }}
           >
-            <LeadStoryHero story={leadStory} />
+            <LeadStoryHero story={leadStory} t={t} lang={lang} />
 
             {infographics.length > 0 && (
               <section className="py-7 border-b border-gray-200">
                 <h2 className="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400 mb-4">
-                  Context
+                  {t.contextLabel}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {infographics.map((ig, i) => (
@@ -429,10 +468,10 @@ export default function VerifiedView({
 
             <section className="pt-6">
               <h2 className="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400 pb-1 border-b border-gray-200 mb-1">
-                International Briefing
+                {t.intlBriefing}
               </h2>
               {articles.length === 0 ? (
-                <p className="py-8 text-sm text-gray-400 text-center">No articles available.</p>
+                <p className="py-8 text-sm text-gray-400 text-center">{t.noArticles}</p>
               ) : (
                 <div className="min-w-0">
                   {articles.map((article, i) => (
@@ -442,6 +481,8 @@ export default function VerifiedView({
                       isLast={i === articles.length - 1}
                       isExpanded={expandedSlug === article.slug}
                       onToggle={() => toggleArticle(article.slug)}
+                      t={t}
+                      lang={lang}
                     />
                   ))}
                 </div>
@@ -449,7 +490,7 @@ export default function VerifiedView({
             </section>
 
             <p className="mt-8 sm:mt-10 text-[11px] text-gray-400 border-t border-gray-100 pt-5 leading-relaxed">
-              This view is session-based and may refresh periodically.
+              {t.sessionNote}
             </p>
           </main>
         </>
