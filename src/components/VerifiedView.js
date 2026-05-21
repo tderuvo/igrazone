@@ -8,10 +8,8 @@ import { useRef, useState } from "react";
 // Clicking a source sets selectedSource state; the SourceView loads the
 // same-origin proxy page /api/source-view?site=<id>.
 const SOURCES = [
-  { id: "bbc",     label: "BBC" },
-  { id: "reuters", label: "Reuters" },
-  { id: "cnn",     label: "CNN" },
-  { id: "meduza",  label: "Meduza" },
+  { id: "meduza",    label: "Meduza" },
+  { id: "hochuzhit", label: "Hochu Zhit" },
 ];
 
 const CATEGORY_COLOURS = {
@@ -234,8 +232,8 @@ function ReturnButton({ onExit }) {
  * Full-screen white news-publication overlay.
  *
  * Internal navigation is React state only — the browser URL never changes.
- * selectedSource = null  → Now You Know home view (scrollable)
- * selectedSource = "bbc" → SourceView: same-origin iframe filling the screen
+ * selectedSource = null        → Now You Know home view (scrollable)
+ * selectedSource = "meduza"|… → SourceView: same-origin iframe filling the screen
  *
  * onExit always triggers the QuickExit / session-burn path regardless of
  * which internal view is currently shown.
@@ -249,7 +247,7 @@ export default function VerifiedView({
   const today = getTodayFormatted();
   const [expandedSlug,   setExpandedSlug]   = useState(null);
 
-  // null = home view   "bbc"|"reuters"|"cnn"|"meduza" = source view
+  // null = home view   "meduza"|"hochuzhit" = source view
   const [selectedSource, setSelectedSource] = useState(null);
 
   function toggleArticle(slug) {
